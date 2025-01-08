@@ -1,0 +1,21 @@
+# OpenHands Custom Instructions
+
+This file contains custom instructions for the OpenHands AI agent to solve issues in this repository.
+
+## Instructions
+
+1. **Understand the Problem Statement**: Carefully read the problem statement and any comments in the issue thread to understand what needs to be fixed.
+
+2. **Explore the Repository**: Look through the repository files to understand the structure and identify where changes might be needed.
+
+3. **Make Code Changes**: Implement the necessary code changes to solve the issue. Ensure that all changes are properly indented and formatted.
+
+4. **Add Tests**: For any changes to application code, add appropriate tests in the testing directory to verify that the issue has been fixed.
+
+5. **Run Tests**: Execute the tests to ensure that they pass and the issue is resolved.
+
+6. **Document Changes**: Clearly document what changes were made to solve the issue, either in the code comments or in a separate documentation file.
+
+7. **Avoid Human Help**: Do not ask for human help. Rely solely on the provided environment and tools.
+
+8. **Finish Interaction**: Once the issue is resolved and tests pass, call the finish action to end the interaction.
