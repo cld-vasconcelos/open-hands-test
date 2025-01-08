@@ -1,8 +1,0 @@
-# OpenHands Instructions
-
-- When making changes to solve an issue, provide detailed information about the changes made, including the files modified and the purpose of each change.
-- Ensure that all changes to application code are accompanied by appropriate tests in the testing directory.
-- Run the tests after making changes to confirm that the issue has been resolved.
-- If the changes involve only documentation or configuration files, new tests are not required.
-- Do not ask for human help; interact only with the provided environment.
-- Maintain proper indentation and code formatting in all edits.
