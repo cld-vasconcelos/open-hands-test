@@ -5,7 +5,6 @@ This is a Python repository with a set of small applications to test OpenHands
 - Implement the necessary code changes to solve the issue. Ensure that all changes are properly indented and formatted.
 - For any changes to application code, add appropriate tests in the testing directory to verify that the issue has been fixed.
 - Execute the tests to ensure that they pass and the issue is resolved.
-- Clearly document what changes were made to solve the issue, either in the code comments or in a separate documentation file.
 - Do not ask for human help. Rely solely on the provided environment and tools.
 - Once the issue is resolved and tests pass, call the finish action to end the interaction.
-- In the last message always provide details of the changes made to solve the issue 
+- Clearly document what changes were made to solve the issue in the last message
