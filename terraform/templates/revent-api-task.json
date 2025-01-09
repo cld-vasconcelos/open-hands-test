@@ -1,0 +1,134 @@
+[
+  {
+    "name": "revent-api",
+    "image": "${docker_url_api}",
+    "essential": true,
+    "cpu": 10,
+    "memory": 512,
+    "portMappings": [
+      {
+        "name": "revent-api-service",
+        "containerPort": 8000,
+        "hostPort": 8000,
+        "protocol": "tcp",
+        "appProtocol": "http"
+      }
+    ],
+    "command": [
+      "uvicorn",
+      "config.asgi:application",
+      "--host",
+      "0.0.0.0",
+      "--port",
+      "8000",
+      "--timeout-keep-alive",
+      "300",
+      "--timeout-graceful-shutdown",
+      "300"
+    ],
+    "environmentFiles": [
+      {
+        "value": "${api_env_file}",
+        "type": "s3"
+      }
+    ],
+    "environment": [
+      {
+        "name": "POSTGRES_HOST",
+        "value": "${rds_hostname}"
+      },
+      {
+        "name": "ALLOWED_HOSTS",
+        "value": "${allowed_hosts}"
+      },
+      {
+        "name": "ALLOWED_REDIRECT_URIS",
+        "value": "${allowed_redirect_uris}"
+      },
+      {
+        "name": "AWS_S3_ENDPOINT_URL",
+        "value": "${s3_endpoint_url}"
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "/ecs/revent-api",
+        "awslogs-region": "${region}",
+        "awslogs-stream-prefix": "revent-api-log-stream"
+      }
+    }
+  },
+  {
+    "name": "revent-app",
+    "image": "${docker_url_app}",
+    "essential": true,
+    "cpu": 10,
+    "memory": 512,
+    "portMappings": [
+      {
+        "name": "revent-app-service",
+        "containerPort": 3000,
+        "hostPort": 3000,
+        "protocol": "tcp",
+        "appProtocol": "http"
+      }
+    ],
+    "command": [
+      "sh",
+      "-c",
+      "export HOSTNAME=0.0.0.0 && node server.js"
+    ],
+    "environmentFiles": [
+      {
+        "value": "${app_env_file}",
+        "type": "s3"
+      }
+    ],
+    "environment": [
+      {
+        "name": "NEXT_PUBLIC_AWS_S3_ENDPOINT_URL",
+        "value": "${s3_endpoint_url}/${revent_media_dir}"
+      },
+      {
+        "name": "NEXT_PUBLIC_AWS_S3_BUCKET",
+        "value": "\"${revent_media_dir}\""
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "/ecs/revent-app",
+        "awslogs-region": "${region}",
+        "awslogs-stream-prefix": "revent-app-log-stream"
+      }
+    }
+  },
+  {
+    "name": "revent-nginx",
+    "image": "${docker_url_nginx}",
+    "essential": true,
+    "cpu": 10,
+    "memory": 128,
+    "portMappings": [
+      {
+        "containerPort": 80,
+        "protocol": "tcp"
+      }
+    ],
+    "environmentFiles": [
+      {
+        "value": "${nginx_env_file}",
+        "type": "s3"
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "/ecs/revent-nginx",
+        "awslogs-region": "${region}",
+        "awslogs-stream-prefix": "revent-nginx-log-stream"
+      }
+    }
+  }
+]

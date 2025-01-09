@@ -1,0 +1,47 @@
+[
+  {
+    "name": "revent-api-create-superuser",
+    "image": "${docker_url_api}",
+    "portMappings": [
+      {
+        "containerPort": 8000
+      }
+    ],
+    "command": [
+      "python",
+      "manage.py",
+      "createsuperuser",
+      "--noinput"
+    ],
+    "environment": [
+      {
+        "name": "DJANGO_SUPERUSER_FIRST_NAME",
+        "value": ""
+      },
+      {
+        "name": "DJANGO_SUPERUSER_LAST_NAME",
+        "value": ""
+      },
+      {
+        "name": "DJANGO_SUPERUSER_EMAIL",
+        "value": ""
+      },
+      {
+        "name": "DJANGO_SUPERUSER_PASSWORD",
+        "value": ""
+      },
+      {
+        "name": "POSTGRES_HOST",
+        "value": "${rds_hostname}"
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "/ecs/revent-api",
+        "awslogs-region": "${region}",
+        "awslogs-stream-prefix": "ecs"
+      }
+    }
+  }
+]
