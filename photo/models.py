@@ -1,6 +1,7 @@
 import uuid
 
-from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.contrib.auth.models import AbstractUser
+from photo.models.UserManager import UserManager
 from django.db import models, transaction
 from django.db.models import Count, Max
 from django.forms import ValidationError
