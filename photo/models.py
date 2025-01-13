@@ -48,6 +48,8 @@ class UserManager(BaseUserManager):
 
 class SoftDeleteModel(models.Model):
     is_deleted = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     objects = SoftDeleteManager()
     all_objects = models.Manager()
 
@@ -160,6 +162,7 @@ class Collection(SoftDeleteModel):
 
 
 class Contest(SoftDeleteModel):
+    bolota = models.BooleanField(default=False)
     title = models.TextField()
     description = models.TextField()
     cover_picture = models.ForeignKey(
@@ -235,6 +238,7 @@ class Contest(SoftDeleteModel):
 
 
 class ContestSubmission(SoftDeleteModel):
+    bolota = models.BooleanField(default=False)
     contest = models.ForeignKey(
         "Contest",
         on_delete=models.CASCADE,
