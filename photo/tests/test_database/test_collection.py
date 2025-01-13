@@ -31,3 +31,6 @@ class CollectionTest(TransactionTestCase):
     def test_factory_pk(self):
         with self.assertRaises(IntegrityError):
             CollectionFactory(user=self.collection.user, name=self.collection.name)
+    def test_timestamps(self):
+        self.assertIsNotNone(self.collection.created_at)
+        self.assertIsNotNone(self.collection.updated_at)

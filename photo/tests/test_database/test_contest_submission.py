@@ -32,6 +32,9 @@ class ContestSubmissionTest(TransactionTestCase):
     def test_factory_pk(self):
         with self.assertRaises(IntegrityError):
             ContestSubmissionFactory(id=self.contest_submission.id)
+    def test_timestamps(self):
+        self.assertIsNotNone(self.contest_submission.created_at)
+        self.assertIsNotNone(self.contest_submission.updated_at)
 
     def test_second_submission_same_user(self):
         with self.assertRaises(ValidationError):
