@@ -7,14 +7,12 @@ from photo.fixtures import (
     UPLOAD_PHASE_NOT_OVER,
     VOTING_PHASE_NOT_OVER,
 )
-from photo.models import (
-    Collection,
-    Contest,
-    ContestSubmission,
-    Picture,
-    PictureComment,
-    User,
-)
+from photo.models.collection import Collection
+from photo.models.contest import Contest
+from photo.models.contest_submission import ContestSubmission
+from photo.models.picture import Picture
+from photo.models.picture_comment import PictureComment
+from photo.models.user import User
 from utils.enums import ContestInternalStates
 
 

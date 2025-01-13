@@ -44,7 +44,10 @@ from .inputs import (
     UserInput,
     UserInputPartial,
 )
-from .models import Collection, Contest, ContestSubmission, Picture
+from photo.models.collection import Collection
+from photo.models.contest import Contest
+from photo.models.contest_submission import ContestSubmission
+from photo.models.picture import Picture
 from .types import (
     AddLikeMutationResponse,
     AddVoteMutationResponse,
