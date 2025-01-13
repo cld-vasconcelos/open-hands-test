@@ -26,7 +26,7 @@ from photo.fixtures import (
     NO_USER_FOUND,
     PICTURE_SIZE_ERROR,
 )
-from photo.models import User
+from photo.models import User, Collection, Contest, ContestSubmission, Picture
 from photo.permissions import IsAuthenticated
 from photo.queries import Info
 
