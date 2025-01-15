@@ -50,12 +50,6 @@ jobs:
       max_iterations: ${{ fromJson(vars.OPENHANDS_MAX_ITER || 50) }}
       base_container_image: ${{ vars.OPENHANDS_BASE_CONTAINER_IMAGE || '' }}
       LLM_MODEL: ${{ vars.LLM_MODEL || 'anthropic/claude-3-5-sonnet-20241022' }}
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_DB: postgres
-      POSTGRES_SCHEMA: public
-      POSTGRES_HOST: localhost
-      POSTGRES_PORT: 5432
     secrets:
       PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
       PAT_USERNAME: ${{ secrets.PAT_USERNAME }}
