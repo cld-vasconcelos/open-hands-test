@@ -78,7 +78,8 @@ class User(AbstractUser, SoftDeleteModel):
         null=True,
     )
     profile_picture_updated_at = models.DateTimeField(blank=True, null=True)
-    user_handle = models.TextField(unique=True, null=True)
+    user_handle = models.TextField(unique=True, null=True)    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     USERNAME_FIELD = "email"
     EMAIL_FIELD = "email"
@@ -118,7 +119,8 @@ class Picture(SoftDeleteModel):
         storage=PublicMediaStorage(),
         upload_to=picture_path,
     )
-    likes = models.ManyToManyField(User, related_name="picture_likes", blank=True)
+    likes = models.ManyToManyField(User, related_name="picture_likes", blank=True)    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
@@ -145,7 +147,8 @@ class Collection(SoftDeleteModel):
     user = models.ForeignKey("User", on_delete=models.CASCADE)
     pictures = models.ManyToManyField(
         Picture, related_name="collection_pictures", blank=True
-    )
+    )    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         constraints = [
@@ -184,7 +187,8 @@ class Contest(SoftDeleteModel):
         related_name="contest_created_by",
         blank=True,
         null=True,
-    )
+    )    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
@@ -244,7 +248,8 @@ class ContestSubmission(SoftDeleteModel):
         on_delete=models.CASCADE,
     )
     submission_date = models.DateTimeField(auto_now_add=True)
-    votes = models.ManyToManyField(User, related_name="submission_votes", blank=True)
+    votes = models.ManyToManyField(User, related_name="submission_votes", blank=True)    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def validate_unique(self, *args, **kwargs):
         qs = ContestSubmission.objects.filter(
