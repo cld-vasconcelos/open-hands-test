@@ -46,7 +46,12 @@ class UserManager(BaseUserManager):
         return self.create_user(email, password, **kwargs)
 
 
-class SoftDeleteModel(models.Model):
+class TimestampedModelMixin(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+class SoftDeleteModel(TimestampedModelMixin):
     is_deleted = models.BooleanField(default=False)
     objects = SoftDeleteManager()
     all_objects = models.Manager()
@@ -64,7 +69,7 @@ class SoftDeleteModel(models.Model):
         abstract = True
 
 
-class User(AbstractUser, SoftDeleteModel):
+class User(AbstractUser, SoftDeleteModel, TimestampedModelMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     email = models.TextField(unique=True)
     username = models.CharField("username", max_length=150, null=True)
