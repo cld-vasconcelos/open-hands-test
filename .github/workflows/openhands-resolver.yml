@@ -41,17 +41,25 @@ jobs:
             echo "Waiting for PostgreSQL to be ready..."
             sleep 2
           done
-          
+
   call-openhands-resolver:
     needs: setup-postgres
-    uses: All-Hands-AI/OpenHands/.github/workflows/openhands-resolver.yml@main
-    with:
-      macro: ${{ vars.OPENHANDS_MACRO || '@openhands-agent' }}
-      max_iterations: ${{ fromJson(vars.OPENHANDS_MAX_ITER || 50) }}
-      base_container_image: ${{ vars.OPENHANDS_BASE_CONTAINER_IMAGE || '' }}
-      LLM_MODEL: ${{ vars.LLM_MODEL || 'anthropic/claude-3-5-sonnet-20241022' }}
-    secrets:
-      PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
-      PAT_USERNAME: ${{ secrets.PAT_USERNAME }}
-      LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
-      LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Restore PostgreSQL database
+        run: |
+          docker run --name postgres -e POSTGRES_DB=${{ vars.POSTGRES_DB }} -e POSTGRES_USER=${{ vars.POSTGRES_USER }} -e POSTGRES_PASSWORD=${{ vars.POSTGRES_PASSWORD }} -d -p 5432:5432 postgres:14.1-alpine
+          sleep 10
+          psql -U ${{ vars.POSTGRES_USER }} -d ${{ vars.POSTGRES_DB }} -f db_dump.sql
+      - name: Call OpenHands Resolver
+        uses: All-Hands-AI/OpenHands/.github/workflows/openhands-resolver.yml@main
+        with:
+          macro: ${{ vars.OPENHANDS_MACRO || '@openhands-agent' }}
+          max_iterations: ${{ fromJson(vars.OPENHANDS_MAX_ITER || 50) }}
+          base_container_image: ${{ vars.OPENHANDS_BASE_CONTAINER_IMAGE || '' }}
+          LLM_MODEL: ${{ vars.LLM_MODEL || 'anthropic/claude-3-5-sonnet-20241022' }}
+        env:
+          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+          PAT_USERNAME: ${{ secrets.PAT_USERNAME }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
