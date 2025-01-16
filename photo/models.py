@@ -65,6 +65,8 @@ class SoftDeleteModel(models.Model):
 
 
 class User(AbstractUser, SoftDeleteModel):
+    created_at = models.DateTimeField(null=True, blank=True)
+    updated_at = models.DateTimeField(null=True, blank=True)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     email = models.TextField(unique=True)
     username = models.CharField("username", max_length=150, null=True)
@@ -110,6 +112,8 @@ class User(AbstractUser, SoftDeleteModel):
 
 
 class Picture(SoftDeleteModel):
+    created_at = models.DateTimeField(null=True, blank=True)
+    updated_at = models.DateTimeField(null=True, blank=True)
     user = models.ForeignKey(
         "User", on_delete=models.CASCADE, related_name="picture_user"
     )
@@ -131,6 +135,8 @@ class Picture(SoftDeleteModel):
 
 
 class PictureComment(SoftDeleteModel):
+    created_at = models.DateTimeField(null=True, blank=True)
+    updated_at = models.DateTimeField(null=True, blank=True)
     user = models.ForeignKey("User", on_delete=models.CASCADE)
     picture = models.ForeignKey(
         "Picture",
@@ -141,6 +147,8 @@ class PictureComment(SoftDeleteModel):
 
 
 class Collection(SoftDeleteModel):
+    created_at = models.DateTimeField(null=True, blank=True)
+    updated_at = models.DateTimeField(null=True, blank=True)
     name = models.TextField()
     user = models.ForeignKey("User", on_delete=models.CASCADE)
     pictures = models.ManyToManyField(
@@ -160,6 +168,8 @@ class Collection(SoftDeleteModel):
 
 
 class Contest(SoftDeleteModel):
+    created_at = models.DateTimeField(null=True, blank=True)
+    updated_at = models.DateTimeField(null=True, blank=True)
     title = models.TextField()
     description = models.TextField()
     cover_picture = models.ForeignKey(
@@ -235,6 +245,8 @@ class Contest(SoftDeleteModel):
 
 
 class ContestSubmission(SoftDeleteModel):
+    created_at = models.DateTimeField(null=True, blank=True)
+    updated_at = models.DateTimeField(null=True, blank=True)
     contest = models.ForeignKey(
         "Contest",
         on_delete=models.CASCADE,
