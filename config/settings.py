@@ -125,7 +125,7 @@ DATABASES = {
         "NAME": __env.str("POSTGRES_DB", default="postgres"),
         "USER": __env.str("POSTGRES_USER", default="postgres"),
         "PASSWORD": __env.str("POSTGRES_PASSWORD", default="postgres"),
-        "HOST": __env.str("POSTGRES_HOST", default="postgres"),
+        "HOST": __env.str("POSTGRES_HOST", default="localhost"),
         "PORT": __env.int("POSTGRES_PORT", default=5432),
     }
 }
