@@ -18,39 +18,38 @@ permissions:
   issues: write
 
 jobs:
-  setup-postgres:
+  setup-and-resolve:
     runs-on: ubuntu-latest
     services:
       postgres:
         image: postgres:14.1-alpine
         env:
-          POSTGRES_DB: ${{ vars.POSTGRES_DB }}
-          POSTGRES_USER: ${{ vars.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ env.POSTGRES_DB }}
+          POSTGRES_USER: ${{ env.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
         ports:
           - 5432:5432
         options: >-
-          --health-cmd="pg_isready -U postgres"
+          --health-cmd="pg_isready -U ${{ env.POSTGRES_USER }}"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
     steps:
       - name: Wait for PostgreSQL to be ready
         run: |
-          until pg_isready -h localhost -p 5432 -U postgres; do
+          until pg_isready -h ${{ env.POSTGRES_HOST }} -p ${{ env.POSTGRES_PORT }} -U ${{ env.POSTGRES_USER }}; do
             echo "Waiting for PostgreSQL to be ready..."
             sleep 2
           done
-          
-  call-openhands-resolver:
-    uses: All-Hands-AI/OpenHands/.github/workflows/openhands-resolver.yml@main
-    with:
-      macro: ${{ vars.OPENHANDS_MACRO || '@openhands-agent' }}
-      max_iterations: ${{ fromJson(vars.OPENHANDS_MAX_ITER || 50) }}
-      base_container_image: ${{ vars.OPENHANDS_BASE_CONTAINER_IMAGE || '' }}
-      LLM_MODEL: ${{ vars.LLM_MODEL || 'anthropic/claude-3-5-sonnet-20241022' }}
-    secrets:
-      PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
-      PAT_USERNAME: ${{ secrets.PAT_USERNAME }}
-      LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
-      LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
+
+      - name: Call OpenHands Resolver
+        uses: All-Hands-AI/OpenHands/.github/workflows/openhands-resolver.yml@main
+        with:
+          macro: ${{ vars.OPENHANDS_MACRO || '@openhands-agent' }}
+          max_iterations: ${{ fromJson(vars.OPENHANDS_MAX_ITER || 50) }}
+          base_container_image: ${{ vars.OPENHANDS_BASE_CONTAINER_IMAGE || '' }}
+          LLM_MODEL: ${{ vars.LLM_MODEL || 'anthropic/claude-3-5-sonnet-20241022' }}
+          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+          PAT_USERNAME: ${{ secrets.PAT_USERNAME }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
