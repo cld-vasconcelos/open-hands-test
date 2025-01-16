@@ -130,3 +130,7 @@ class Query:
         else:
             query_results.sort(key=set_order)
         return query_results
+    @strawberry.field
+    def contest_winners(self) -> List[ContestType]:
+        contests = Contest.objects.filter(internal_status=ContestInternalStates.CLOSED)
+        return [contest for contest in contests if contest.winners.exists()]

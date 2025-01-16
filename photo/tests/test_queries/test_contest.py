@@ -108,6 +108,21 @@ class ContestTest(TestCase):
         for contest in result.data["contests"]:
             self.assertEqual(contest["status"], status[str(contest["id"])])
 
+    def test_contest_winners(self):
+        user = UserFactory()
+        contest_closed_with_winner = ContestFactory(
+            created_by=user,
+            internal_status='closed'
+        )
+        contest_closed_with_winner.winners.add(user)
+
+        result = schema.execute_sync(
+            '{ contestWinners { id } }'
+        )
+
+        self.assertEqual(result.errors, None)
+        self.assertEqual(len(result.data['contestWinners']), 1)
+        self.assertEqual(result.data['contestWinners'][0]['id'], str(contest_closed_with_winner.id))
 
 class ContestFilterTest(TestCase):
     def test_filter_by_search(self):
