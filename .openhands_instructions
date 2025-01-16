@@ -7,7 +7,7 @@ This repository is designed to use OpenHands to create and evolve simple Python 
 1. **Understand the Problem Statement**: Carefully read the problem statement provided in the issue description.
 2. **Identify the Files to Modify**: Determine which files need to be created or modified to address the issue.
 3. **Implement the Solution**: Make the necessary code changes to solve the problem.
-5. **Create Migrations**: Run the command `make migrations` to generate the necessary database migrations.
+4. **Handle Model Changes**: If any models are changed, generate the necessary database migrations to apply these changes.
 5. **Describe Changes**: Clearly describe the changes made to solve each step of the issue.
 6. **Testing**: Ensure that all changes are covered by appropriate tests. Do not run tests.
 7. **Documentation**: Update any relevant documentation to reflect the changes made.
