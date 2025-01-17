@@ -18,7 +18,7 @@ permissions:
   issues: write
 
 env:
-  USE_SQLITE_FOR_MIGRATIONS: "false"
+  USE_SQLITE_FOR_MIGRATIONS: false
     
 jobs:
   call-openhands-resolver:
