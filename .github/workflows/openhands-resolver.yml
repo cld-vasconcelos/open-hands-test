@@ -17,6 +17,9 @@ permissions:
   pull-requests: write
   issues: write
 
+env:
+  USE_SQLITE_FOR_MIGRATIONS: "false"
+    
 jobs:
   call-openhands-resolver:
     uses: All-Hands-AI/OpenHands/.github/workflows/openhands-resolver.yml@main
