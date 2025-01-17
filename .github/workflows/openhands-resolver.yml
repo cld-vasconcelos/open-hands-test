@@ -19,14 +19,37 @@ permissions:
 
 jobs:
   call-openhands-resolver:
-    uses: All-Hands-AI/OpenHands/.github/workflows/openhands-resolver.yml@main
-    with:
-      macro: ${{ vars.OPENHANDS_MACRO || '@openhands-agent' }}
-      max_iterations: ${{ fromJson(vars.OPENHANDS_MAX_ITER || 50) }}
-      base_container_image: ${{ vars.OPENHANDS_BASE_CONTAINER_IMAGE || '' }}
-      LLM_MODEL: ${{ vars.LLM_MODEL || 'anthropic/claude-3-5-sonnet-20241022' }}
-    secrets:
-      PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
-      PAT_USERNAME: ${{ secrets.PAT_USERNAME }}
-      LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
-      LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Start PostgreSQL service
+        run: |
+          docker run -d --name postgres \
+            -e POSTGRES_HOST_AUTH_METHOD=trust \
+            -p 5432:5432 \
+            pgvector/pgvector:pg16
+          docker ps
+
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          until docker exec postgres pg_isready; do
+            echo "Waiting for postgres...";
+            sleep 5;
+          done
+        shell: bash
+
+      - name: Call reusable workflow
+        uses: All-Hands-AI/OpenHands/.github/workflows/openhands-resolver.yml@main
+        with:
+          macro: ${{ vars.OPENHANDS_MACRO || '@openhands-agent' }}
+          max_iterations: ${{ fromJson(vars.OPENHANDS_MAX_ITER || 50) }}
+          base_container_image: ${{ vars.OPENHANDS_BASE_CONTAINER_IMAGE || '' }}
+          LLM_MODEL: ${{ vars.LLM_MODEL || 'anthropic/claude-3-5-sonnet-20241022' }}
+        secrets:
+          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+          PAT_USERNAME: ${{ secrets.PAT_USERNAME }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
+
+      - name: Stop PostgreSQL service
+        run: docker stop postgres
