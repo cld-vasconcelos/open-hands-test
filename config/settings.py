@@ -118,17 +118,12 @@ AUTH_USER_MODEL = "photo.User"
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": __env.str("POSTGRES_DB", default="postgres"),
-        "USER": __env.str("POSTGRES_USER", default="postgres"),
-        "PASSWORD": __env.str("POSTGRES_PASSWORD", default="postgres"),
-        "HOST": __env.str("POSTGRES_HOST", default="localhost"),
-        "PORT": __env.int("POSTGRES_PORT", default=5432),
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": ":memory:",
+        }
     }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
