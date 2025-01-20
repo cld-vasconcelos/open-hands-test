@@ -17,17 +17,17 @@ permissions:
   pull-requests: write
   issues: write
 
-env:
-  POSTGRES_USER: postgres
-  POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-  POSTGRES_DB: postgres
-  POSTGRES_HOST: db.atdcljqbnraswramrqkp.supabase.co
-  POSTGRES_PORT: 5432
-  AWS_S3_ENDPOINT_URL: https://revent-storage.s3.eu-west-1.amazonaws.com
-
 jobs:
+  set-env-vars:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set environment variables
+        run: |
+          echo "AWS_S3_ENDPOINT_URL=https://revent-storage.s3.eu-west-1.amazonaws.com" >> $GITHUB_ENV
+          
   call-openhands-resolver:
     uses: All-Hands-AI/OpenHands/.github/workflows/openhands-resolver.yml@main
+    needs: set-env-vars
     with:
       macro: ${{ vars.OPENHANDS_MACRO || '@openhands-agent' }}
       max_iterations: ${{ fromJson(vars.OPENHANDS_MAX_ITER || 50) }}
