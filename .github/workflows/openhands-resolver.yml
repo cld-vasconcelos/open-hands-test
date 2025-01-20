@@ -17,6 +17,13 @@ permissions:
   pull-requests: write
   issues: write
 
+env:
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+  POSTGRES_DB: postgres
+  POSTGRES_HOST: db.atdcljqbnraswramrqkp.supabase.co
+  POSTGRES_PORT: 5432
+
 jobs:
   call-openhands-resolver:
     uses: All-Hands-AI/OpenHands/.github/workflows/openhands-resolver.yml@main
