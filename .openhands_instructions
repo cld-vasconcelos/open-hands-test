@@ -4,7 +4,7 @@
 This repository is designed to use OpenHands to create and evolve simple Python applications. 
 
 ## Instructions for OpenHands AI Agent
-1. **Setup Development Environment**: Run `poetry install` to install the required packages for the project before making any changes. Ensure all dependencies are properly installed.
+1. **Setup Development Environment**: Run `poetry install --no-root` to install the required packages for the project before making any changes. Ensure all dependencies are properly installed.
 2. **Understand the Problem Statement**: Carefully read the problem statement provided in the issue description.
 3. **Identify the Files to Modify**: Determine which files need to be created or modified to address the issue.
 4. **Implement the Solution**: Make the necessary code changes to solve the problem. Do not create migrations.
