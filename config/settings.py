@@ -16,11 +16,11 @@ SECRET_KEY = __env.str("SECRET_KEY", default="SECRET_KEY")
 DEBUG = __env.bool("DEBUG", default=False)
 
 # AWS environment variables
-AWS_S3_ENDPOINT_URL = __env.url("AWS_S3_ENDPOINT_URL", default="AWS_S3_ENDPOINT_URL").geturl()
+AWS_S3_ENDPOINT_URL = __env.url("AWS_S3_ENDPOINT_URL", default="http://localhost:4566").geturl()
 AWS_DEFAULT_REGION = __env.str("AWS_DEFAULT_REGION", default="AWS_DEFAULT_REGION")
 AWS_STORAGE_BUCKET_NAME = __env.str("AWS_STORAGE_BUCKET_NAME", default="AWS_STORAGE_BUCKET_NAME")
-AWS_ACCESS_KEY_ID = __env.str("AWS_ACCESS_KEY_ID", default="AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = __env.str("AWS_SECRET_ACCESS_KEY", default="AWS_SECRET_ACCESS_KEY")
+AWS_ACCESS_KEY_ID = __env.str("AWS_ACCESS_KEY_ID", default="test-access-key")
+AWS_SECRET_ACCESS_KEY = __env.str("AWS_SECRET_ACCESS_KEY", default="test-secret-key")
 AWS_QUERYSTRING_AUTH = __env.bool("AWS_QUERYSTRING_AUTH", default="AWS_QUERYSTRING_AUTH")
 AWS_S3_SIGNATURE_VERSION = __env.str("AWS_S3_SIGNATURE_VERSION", default="AWS_S3_SIGNATURE_VERSION")
 

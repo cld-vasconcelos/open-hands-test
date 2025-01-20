@@ -1,4 +1,6 @@
 from django.test import TestCase
+from moto import mock_s3
+
 
 from integrations.aws.s3 import Client
 
