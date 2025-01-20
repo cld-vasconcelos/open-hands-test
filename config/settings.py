@@ -16,7 +16,7 @@ SECRET_KEY = __env.str("SECRET_KEY", default="SECRET_KEY")
 DEBUG = __env.bool("DEBUG", default=False)
 
 # AWS environment variables
-AWS_S3_ENDPOINT_URL = __env.url("AWS_S3_ENDPOINT_URL", default="https://revent-storage.s3.eu-west-1.amazonaws.com").geturl()
+AWS_S3_ENDPOINT_URL = __env.url("AWS_S3_ENDPOINT_URL", default="AWS_S3_ENDPOINT_URL").geturl()
 AWS_DEFAULT_REGION = __env.str("AWS_DEFAULT_REGION", default="AWS_DEFAULT_REGION")
 AWS_STORAGE_BUCKET_NAME = __env.str("AWS_STORAGE_BUCKET_NAME", default="AWS_STORAGE_BUCKET_NAME")
 AWS_ACCESS_KEY_ID = __env.str("AWS_ACCESS_KEY_ID", default="AWS_ACCESS_KEY_ID")
