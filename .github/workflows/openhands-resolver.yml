@@ -23,6 +23,7 @@ env:
   POSTGRES_DB: postgres
   POSTGRES_HOST: db.atdcljqbnraswramrqkp.supabase.co
   POSTGRES_PORT: 5432
+  AWS_S3_ENDPOINT_URL: https://revent-storage.s3.eu-west-1.amazonaws.com
 
 jobs:
   call-openhands-resolver:
