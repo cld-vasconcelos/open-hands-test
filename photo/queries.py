@@ -130,3 +130,6 @@ class Query:
         else:
             query_results.sort(key=set_order)
         return query_results
+    @strawberry.field
+    def past_contest_winners(self) -> List[ContestType]:
+        return Contest.objects.exclude(winners=None).all()

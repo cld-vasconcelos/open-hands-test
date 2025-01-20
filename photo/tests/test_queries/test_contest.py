@@ -221,3 +221,18 @@ class ContestTestWithoutData(TestCase):
 
         self.assertEqual(result.errors, None)
         self.assertEqual(len(result.data["contests"]), 0)
+
+    def test_past_contest_winners(self):
+        user = UserFactory()
+        contest_with_winner = ContestFactory(created_by=user)
+        contest_with_winner.winners.add(user)
+        contest_without_winner = ContestFactory(created_by=user)
+
+        result = schema.execute_sync(
+            past_contest_winners_query,
+            variable_values={}
+        )
+
+        self.assertEqual(result.errors, None)
+        self.assertEqual(len(result.data["pastContestWinners"]), 1)
+        self.assertEqual(result.data["pastContestWinners"][0]["id"], str(contest_with_winner.id))

@@ -228,3 +228,14 @@ user_query_one = """
                         }
                     }
                 """
+past_contest_winners_query = """
+    query TestQuery {
+        pastContestWinners {
+            id
+            title
+            winners {
+                id
+            }
+        }
+    }
+"""
