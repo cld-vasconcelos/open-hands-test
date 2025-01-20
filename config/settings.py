@@ -118,15 +118,7 @@ AUTH_USER_MODEL = "photo.User"
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-if os.getenv("USE_SQLITE_FOR_MIGRATIONS", "false") == "true":
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": ":memory:",
-        }
-    }
-else:
-    DATABASES = {
+DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql_psycopg2",
             "NAME": __env.str("POSTGRES_DB", default="postgres"),
