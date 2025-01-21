@@ -18,20 +18,16 @@ permissions:
   issues: write
 
 jobs:
-  set-env-vars:
+  print-env-vars:
     runs-on: ubuntu-latest
     steps:
-      - name: Set environment variables
+      - name: Print environment variables
         run: |
-          echo "POSTGRES_PASSWORD=postgres" >> $GITHUB_ENV
-          echo "POSTGRES_USER=postgres" >> $GITHUB_ENV
-          echo "POSTGRES_HOST=db.atdcljqbnraswramrqkp.supabase.co" >> $GITHUB_ENV
-          echo "POSTGRES_PORT=5432" >> $GITHUB_ENV
-          echo "POSTGRES_PASSWORD=postgres" >> $GITHUB_ENV
-          
+          echo "POSTGRES_HOST=${{ vars.POSTGRES_HOST || 'banana' }}"
+
   call-openhands-resolver:
+    needs: print-env-vars
     uses: All-Hands-AI/OpenHands/.github/workflows/openhands-resolver.yml@main
-    needs: set-env-vars
     with:
       macro: ${{ vars.OPENHANDS_MACRO || '@openhands-agent' }}
       max_iterations: ${{ fromJson(vars.OPENHANDS_MAX_ITER || 50) }}
