@@ -18,13 +18,6 @@ permissions:
   issues: write
 
 jobs:
-  set-env-vars:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set environment variables
-        run: |
-          echo "AWS_S3_ENDPOINT_URL=https://revent-storage.s3.eu-west-1.amazonaws.com" >> $GITHUB_ENV
-          
   call-openhands-resolver:
     uses: All-Hands-AI/OpenHands/.github/workflows/openhands-resolver.yml@main
     needs: set-env-vars
