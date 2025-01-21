@@ -16,9 +16,11 @@ SECRET_KEY = __env.str("SECRET_KEY", default="SECRET_KEY")
 DEBUG = __env.bool("DEBUG", default=False)
 
 # AWS environment variables
-AWS_S3_ENDPOINT_URL = __env.url("AWS_S3_ENDPOINT_URL", default="https://revent-storage.s3.eu-west-1.amazonaws.com").geturl()
+AWS_S3_ENDPOINT_URL = __env.url(
+    "AWS_S3_ENDPOINT_URL", default="https://revent-storage.s3.eu-west-1.amazonaws.com"
+).geturl()
 AWS_DEFAULT_REGION = __env.str("AWS_DEFAULT_REGION", default="AWS_DEFAULT_REGION")
-AWS_STORAGE_BUCKET_NAME = __env.str("AWS_STORAGE_BUCKET_NAME", default="revent-media")
+AWS_STORAGE_BUCKET_NAME = "revent-media"  # __env.str("AWS_STORAGE_BUCKET_NAME", default="revent-media")
 AWS_ACCESS_KEY_ID = __env.str("AWS_ACCESS_KEY_ID", default="AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = __env.str("AWS_SECRET_ACCESS_KEY", default="AWS_SECRET_ACCESS_KEY")
 AWS_QUERYSTRING_AUTH = __env.bool("AWS_QUERYSTRING_AUTH", default="AWS_QUERYSTRING_AUTH")
@@ -119,15 +121,15 @@ AUTH_USER_MODEL = "photo.User"
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql_psycopg2",
-            "NAME": __env.str("POSTGRES_DB", default="postgres"),
-            "USER": __env.str("POSTGRES_USER", default="postgres"),
-            "PASSWORD": __env.str("POSTGRES_PASSWORD", default="postgres"),
-            "HOST": __env.str("POSTGRES_HOST", default="postgres"),
-            "PORT": __env.int("POSTGRES_PORT", default=5432),
-        }
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": __env.str("POSTGRES_DB", default="postgres"),
+        "USER": __env.str("POSTGRES_USER", default="postgres"),
+        "PASSWORD": __env.str("POSTGRES_PASSWORD", default="postgres"),
+        "HOST": __env.str("POSTGRES_HOST", default="postgres"),
+        "PORT": __env.int("POSTGRES_PORT", default=5432),
     }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
