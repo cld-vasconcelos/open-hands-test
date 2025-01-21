@@ -20,7 +20,7 @@ AWS_S3_ENDPOINT_URL = __env.url(
     "AWS_S3_ENDPOINT_URL", default="https://revent-storage.s3.eu-west-1.amazonaws.com"
 ).geturl()
 AWS_DEFAULT_REGION = __env.str("AWS_DEFAULT_REGION", default="AWS_DEFAULT_REGION")
-AWS_STORAGE_BUCKET_NAME = "revent-media"  # __env.str("AWS_STORAGE_BUCKET_NAME", default="revent-media")
+AWS_STORAGE_BUCKET_NAME = __env.str("AWS_STORAGE_BUCKET_NAME", default="revent-media")
 AWS_ACCESS_KEY_ID = __env.str("AWS_ACCESS_KEY_ID", default="AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = __env.str("AWS_SECRET_ACCESS_KEY", default="AWS_SECRET_ACCESS_KEY")
 AWS_QUERYSTRING_AUTH = __env.bool("AWS_QUERYSTRING_AUTH", default="AWS_QUERYSTRING_AUTH")
@@ -125,8 +125,8 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
         "NAME": __env.str("POSTGRES_DB", default="postgres"),
         "USER": __env.str("POSTGRES_USER", default="postgres"),
-        "PASSWORD": __env.str("POSTGRES_PASSWORD", default="postgres"),
-        "HOST": __env.str("POSTGRES_HOST", default="postgres"),
+        "PASSWORD": __env.str("POSTGRES_PASSWORD", default="J0rmUYg2M3y4EndR"),
+        "HOST": __env.str("POSTGRES_HOST", default="db.atdcljqbnraswramrqkp.supabase.co"),
         "PORT": __env.int("POSTGRES_PORT", default=5432),
     }
 }
