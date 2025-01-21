@@ -1,4 +1,4 @@
-from integrations.aws.s3 import Client
+# from integrations.aws.s3 import Client
 
-client = Client()
-client.create_bucket()
+# client = Client()
+# client.create_bucket()
