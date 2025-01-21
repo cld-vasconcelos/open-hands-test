@@ -62,6 +62,8 @@ class SoftDeleteModel(models.Model):
 
     class Meta:
         abstract = True
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
 
 
 class User(AbstractUser, SoftDeleteModel):
@@ -82,6 +84,8 @@ class User(AbstractUser, SoftDeleteModel):
 
     USERNAME_FIELD = "email"
     EMAIL_FIELD = "email"
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
     REQUIRED_FIELDS = ["first_name", "last_name"]
     objects = UserManager()
 
@@ -119,6 +123,8 @@ class Picture(SoftDeleteModel):
         upload_to=picture_path,
     )
     likes = models.ManyToManyField(User, related_name="picture_likes", blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
 
     def __str__(self):
         return self.name
@@ -137,7 +143,8 @@ class PictureComment(SoftDeleteModel):
         on_delete=models.CASCADE,
     )
     text = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
 
 
 class Collection(SoftDeleteModel):
@@ -147,6 +154,8 @@ class Collection(SoftDeleteModel):
         Picture, related_name="collection_pictures", blank=True
     )
 
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=["name", "user"], name="collection_pk")
@@ -185,6 +194,8 @@ class Contest(SoftDeleteModel):
         blank=True,
         null=True,
     )
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
 
     def __str__(self):
         return self.title
