@@ -33,3 +33,12 @@ class ContestTest(TransactionTestCase):
     def test_factory_pk(self):
         with self.assertRaises(IntegrityError):
             ContestFactory(id=self.contest.id)
+
+    def test_created_at(self):
+        self.assertIsNotNone(self.contest.created_at)
+
+    def test_updated_at(self):
+        old_updated_at = self.contest.updated_at
+        self.contest.title = "Updated Title"
+        self.contest.save()
+        self.assertNotEqual(self.contest.updated_at, old_updated_at)

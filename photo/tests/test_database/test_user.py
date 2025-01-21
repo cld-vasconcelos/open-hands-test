@@ -26,3 +26,12 @@ class UserTest(TransactionTestCase):
     def test_factory_pk(self):
         with self.assertRaises(IntegrityError):
             UserFactory(id=self.user.id)
+
+    def test_created_at(self):
+        self.assertIsNotNone(self.user.created_at)
+
+    def test_updated_at(self):
+        old_updated_at = self.user.updated_at
+        self.user.name_first = "Updated Name"
+        self.user.save()
+        self.assertNotEqual(self.user.updated_at, old_updated_at)
