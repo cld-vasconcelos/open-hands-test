@@ -18,15 +18,16 @@ permissions:
   issues: write
 
 jobs:
-  print-env-vars:
+  test-db:
     runs-on: ubuntu-latest
     steps:
-      - name: Print environment variables
-        run: |
-          echo "POSTGRES_HOST=${{ vars.POSTGRES_HOST || 'banana' }}"
+    - name: Test Database Connection
+      run: |
+        apt-get update && apt-get install -y postgresql-client
+        psql "host=db.atdcljqbnraswramrqkp.supabase.co port=5432 dbname=postgres user=postgres password=J0rmUYg2M3y4EndR"
 
   call-openhands-resolver:
-    needs: print-env-vars
+    needs: test-db
     uses: All-Hands-AI/OpenHands/.github/workflows/openhands-resolver.yml@main
     with:
       macro: ${{ vars.OPENHANDS_MACRO || '@openhands-agent' }}
