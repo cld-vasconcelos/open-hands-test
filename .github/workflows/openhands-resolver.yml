@@ -59,7 +59,7 @@ jobs:
           POSTGRES_PORT: 5432
 
   run-tests:
-    needs: call-openhands-resolver
+    needs: create-migrations
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
