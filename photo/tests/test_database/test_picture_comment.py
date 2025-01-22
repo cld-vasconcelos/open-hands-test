@@ -25,3 +25,9 @@ class PictureCommentTest(TransactionTestCase):
     def test_factory_pk(self):
         with self.assertRaises(IntegrityError):
             PictureCommentFactory(id=self.picture_comment.id)
+
+    def test_timestamps(self):
+        self.assertIsNotNone(self.picture_comment.created_at)
+        self.assertIsNotNone(self.picture_comment.updated_at)
+        self.assertTrue(self.picture_comment._meta.get_field('created_at').null)
+        self.assertTrue(self.picture_comment._meta.get_field('updated_at').null)
