@@ -79,6 +79,8 @@ class User(AbstractUser, SoftDeleteModel):
     )
     profile_picture_updated_at = models.DateTimeField(blank=True, null=True)
     user_handle = models.TextField(unique=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
 
     USERNAME_FIELD = "email"
     EMAIL_FIELD = "email"
@@ -117,7 +119,8 @@ class Picture(SoftDeleteModel):
     file = models.ImageField(
         storage=PublicMediaStorage(),
         upload_to=picture_path,
-    )
+    )    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
     likes = models.ManyToManyField(User, related_name="picture_likes", blank=True)
 
     def __str__(self):
@@ -136,8 +139,8 @@ class PictureComment(SoftDeleteModel):
         "Picture",
         on_delete=models.CASCADE,
     )
-    text = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
+    text = models.TextField()    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
 
 
 class Collection(SoftDeleteModel):
@@ -146,6 +149,8 @@ class Collection(SoftDeleteModel):
     pictures = models.ManyToManyField(
         Picture, related_name="collection_pictures", blank=True
     )
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
 
     class Meta:
         constraints = [
@@ -185,6 +190,8 @@ class Contest(SoftDeleteModel):
         blank=True,
         null=True,
     )
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
 
     def __str__(self):
         return self.title
@@ -242,7 +249,8 @@ class ContestSubmission(SoftDeleteModel):
     picture = models.ForeignKey(
         "Picture",
         on_delete=models.CASCADE,
-    )
+    )    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
     submission_date = models.DateTimeField(auto_now_add=True)
     votes = models.ManyToManyField(User, related_name="submission_votes", blank=True)
 
