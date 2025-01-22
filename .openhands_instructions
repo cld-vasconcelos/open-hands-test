@@ -6,7 +6,7 @@ This repository is designed to use OpenHands to create and evolve simple Python 
 ## Instructions for OpenHands AI Agent
 1. **Understand the Problem Statement**: Carefully read the problem statement provided in the issue description.
 2. **Identify the Files to Modify**: Determine which files need to be created or modified to address the issue.
-3. **Implement the Solution**: Make the necessary code changes to solve the problem. Do not create migrations.
+3. **Implement the Solution**: Make the necessary code changes to solve the problem. If any models are changed, the necessary database migration files should be created.
 4. **Describe Changes**: Clearly describe the changes made to solve each step of the issue.
 5. **Testing**: Ensure that all changes are covered by appropriate tests. Do not run tests.
 6. **Documentation**: Update any relevant documentation to reflect the changes made.
@@ -22,6 +22,10 @@ This repository is designed to use OpenHands to create and evolve simple Python 
 ## Testing
 - All code changes should be accompanied by tests located in the `photo/tests` directory.
 - Do not run tests.
+
+## Commands
+- Setup: poetry install --no-root
+- Create migrations: make migrations
 
 ## Final Steps
 - After completing the changes, finalize the task by marking it as complete.

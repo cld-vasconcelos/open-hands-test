@@ -31,37 +31,8 @@ jobs:
       LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
       LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
 
-  create-migrations:
-    needs: call-openhands-resolver
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.10'
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install poetry
-          poetry install --no-root
-
-      - name: Run migrations
-        run: |
-          source $(poetry env info --path)/bin/activate
-          make migrations
-        env:
-          POSTGRES_DB: postgres
-          POSTGRES_USER: postgres.atdcljqbnraswramrqkp
-          POSTGRES_PASSWORD: J0rmUYg2M3y4EndR
-          POSTGRES_HOST: aws-0-eu-central-1.pooler.supabase.com
-          POSTGRES_PORT: 5432
-
   run-tests:
-    needs: create-migrations
+    needs: call-openhands-resolver
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
