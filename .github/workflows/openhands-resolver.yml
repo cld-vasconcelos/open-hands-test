@@ -18,16 +18,7 @@ permissions:
   issues: write
 
 jobs:
-  test-db:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Test Database Connection
-      run: |
-        apt-get update && apt-get install -y postgresql-client
-        psql "host=aws-0-eu-central-1.pooler.supabase.com port=5432 dbname=postgres user=postgres.atdcljqbnraswramrqkp password=J0rmUYg2M3y4EndR"
-
   call-openhands-resolver:
-    needs: test-db
     uses: All-Hands-AI/OpenHands/.github/workflows/openhands-resolver.yml@main
     with:
       macro: ${{ vars.OPENHANDS_MACRO || '@openhands-agent' }}
@@ -39,3 +30,21 @@ jobs:
       PAT_USERNAME: ${{ secrets.PAT_USERNAME }}
       LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
       LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
+
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          poetry install --no-root
+
+      - name: Run tests
+        run: make test
