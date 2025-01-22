@@ -24,7 +24,7 @@ jobs:
     - name: Test Database Connection
       run: |
         apt-get update && apt-get install -y postgresql-client
-        psql "host=db.atdcljqbnraswramrqkp.supabase.co port=5432 dbname=postgres user=postgres password=J0rmUYg2M3y4EndR"
+        psql "host=aws-0-eu-central-1.pooler.supabase.com port=5432 dbname=postgres user=postgres.atdcljqbnraswramrqkp password=J0rmUYg2M3y4EndR"
 
   call-openhands-resolver:
     needs: test-db
