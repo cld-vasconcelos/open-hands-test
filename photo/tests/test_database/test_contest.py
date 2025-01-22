@@ -33,3 +33,6 @@ class ContestTest(TransactionTestCase):
     def test_factory_pk(self):
         with self.assertRaises(IntegrityError):
             ContestFactory(id=self.contest.id)
+    def test_timestamps(self):
+        self.assertIsNotNone(self.contest.created_at)
+        self.assertIsNotNone(self.contest.updated_at)
