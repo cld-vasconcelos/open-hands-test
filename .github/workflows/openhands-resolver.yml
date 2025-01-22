@@ -32,6 +32,7 @@ jobs:
       LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
 
   run-tests:
+    needs: call-openhands-resolver
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -44,7 +45,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-          poetry install --no-root
+          python -m pip install --upgrade pip
+          pip install poetry
+          poetry install
 
       - name: Run tests
         run: make test
