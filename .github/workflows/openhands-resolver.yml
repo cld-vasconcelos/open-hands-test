@@ -58,3 +58,4 @@ jobs:
           POSTGRES_HOST: aws-0-eu-central-1.pooler.supabase.com
           POSTGRES_PORT: 5432
           AWS_S3_SIGNATURE_VERSION: s3v4
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
