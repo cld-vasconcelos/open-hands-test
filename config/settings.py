@@ -120,14 +120,25 @@ AUTH_USER_MODEL = "photo.User"
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql_psycopg2",
+#         "NAME": __env.str("POSTGRES_DB", default="postgres"),
+#         "USER": __env.str("POSTGRES_USER", default="postgres"),
+#         "PASSWORD": __env.str("POSTGRES_PASSWORD", default="J0rmUYg2M3y4EndR"),
+#         "HOST": __env.str("POSTGRES_HOST", default="db.atdcljqbnraswramrqkp.supabase.co"),
+#         "PORT": __env.int("POSTGRES_PORT", default=5432),
+#     }
+# }
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": __env.str("POSTGRES_DB", default="postgres"),
-        "USER": __env.str("POSTGRES_USER", default="postgres"),
-        "PASSWORD": __env.str("POSTGRES_PASSWORD", default="J0rmUYg2M3y4EndR"),
-        "HOST": __env.str("POSTGRES_HOST", default="db.atdcljqbnraswramrqkp.supabase.co"),
-        "PORT": __env.int("POSTGRES_PORT", default=5432),
+        "NAME": "postgres",
+        "USER": "postgres",
+        "PASSWORD": "J0rmUYg2M3y4EndR",
+        "HOST": "db.atdcljqbnraswramrqkp.supabase.co",
+        "PORT": 5432,
     }
 }
 
