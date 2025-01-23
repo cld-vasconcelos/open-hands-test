@@ -228,3 +228,35 @@ user_query_one = """
                         }
                     }
                 """
+
+winners_query = """
+    query TestQuery {
+        winners {
+            id
+            title
+            description
+            cover_picture {
+                id
+            }
+            prize
+            upload_phase_start
+            upload_phase_end
+            voting_phase_end
+            voting_draw_end
+            internal_status
+            winners {
+                id
+                contest {
+                    id
+                }
+                picture {
+                    id
+                }
+                submission_date
+                votes {
+                    id
+                }
+            }
+        }
+    }
+"""
