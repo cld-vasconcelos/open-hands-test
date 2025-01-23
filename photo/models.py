@@ -46,7 +46,15 @@ class UserManager(BaseUserManager):
         return self.create_user(email, password, **kwargs)
 
 
-class SoftDeleteModel(models.Model):
+class TimestampedModel(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
+
+    class Meta:
+        abstract = True
+
+
+class SoftDeleteModel(TimestampedModel):
     is_deleted = models.BooleanField(default=False)
     objects = SoftDeleteManager()
     all_objects = models.Manager()
