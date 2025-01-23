@@ -221,3 +221,23 @@ class ContestTestWithoutData(TestCase):
 
         self.assertEqual(result.errors, None)
         self.assertEqual(len(result.data["contests"]), 0)
+
+from photo.tests.test_queries.graphql_queries import winners_query
+
+class WinnersTest(TestCase):
+    def setUp(self):
+        self.user = UserFactory()
+        self.contest = ContestFactory(created_by=self.user)
+        self.contest.winners.add(self.user)
+
+    def test_winners_query(self):
+        result = schema.execute_sync(
+            winners_query,
+            variable_values={},
+        )
+
+        self.assertEqual(result.errors, None)
+        self.assertEqual(len(result.data["winners"]), 1)
+        self.assertEqual(result.data["winners"][0]["id"], str(self.contest.id))
+        self.assertEqual(len(result.data["winners"][0]["winners"]), 1)
+        self.assertEqual(result.data["winners"][0]["winners"][0]["id"], str(self.user.id))
