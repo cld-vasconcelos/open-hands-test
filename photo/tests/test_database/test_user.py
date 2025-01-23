@@ -26,3 +26,9 @@ class UserTest(TransactionTestCase):
     def test_factory_pk(self):
         with self.assertRaises(IntegrityError):
             UserFactory(id=self.user.id)
+    def test_timestamps(self):
+        self.assertIsNotNone(self.user.created_at)
+        self.assertIsNotNone(self.user.updated_at)
+        self.assertTrue(self.user._meta.get_field('created_at').null)
+        self.assertTrue(self.user._meta.get_field('updated_at').null)
+
