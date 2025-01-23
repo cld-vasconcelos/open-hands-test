@@ -34,6 +34,15 @@ from photo.types import (
     PictureType,
     UserType,
 )
+@strawberry.type
+class WinnerType:
+    user: UserType
+    submission: ContestSubmissionType
+
+@strawberry.type
+class ContestWinnerType:
+    contest: ContestType
+    winners: List[WinnerType]
 from utils.enums import ContestInternalStates
 
 
@@ -123,6 +132,17 @@ class Query:
             winner_submission = ContestSubmission.objects.filter(
                 picture__user__id=winner
             ).first()
+@strawberry.field
+def winners(self) -> List[ContestWinnerType]:
+    contests = Contest.objects.filter(winners__isnull=False).order_by('-voting_phase_end')
+    result = []
+    for contest in contests:
+        winners = [
+            WinnerType(user=winner, submission=ContestSubmission.objects.filter(contest=contest, picture__user=winner).first())
+            for winner in contest.winners.all()
+        ]
+        result.append(ContestWinnerType(contest=contest, winners=winners))
+    return result
             query_results.remove(winner_submission)
             query_results = [winner_submission] + query_results
         elif not order:
