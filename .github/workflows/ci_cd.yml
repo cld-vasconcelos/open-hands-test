@@ -10,12 +10,6 @@ env:
   DATABASE_HOST: localhost
   DATABASE_PORT: 5432
   DATABASE_NAME: postgres
-
-#  POSTGRES_DB: postgres
-#           POSTGRES_USER: postgres.atdcljqbnraswramrqkp
-#           POSTGRES_PASSWORD: J0rmUYg2M3y4EndR
-#           POSTGRES_HOST: aws-0-eu-central-1.pooler.supabase.com
-#           POSTGRES_PORT: 5432
           
 jobs:
   run-tests:
@@ -53,6 +47,11 @@ jobs:
         run: |
           make test
         env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_HOST: localhost
+          POSTGRES_PORT: 5432
+          POSTGRES_DB: postgres
           AWS_S3_ENDPOINT_URL: https://revent-storage.s3.eu-west-1.amazonaws.com
           AWS_DEFAULT_REGION: us-west-1
           AWS_S3_BUCKET_NAME: revent-storage
