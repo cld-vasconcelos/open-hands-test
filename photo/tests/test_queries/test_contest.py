@@ -1,4 +1,25 @@
 from datetime import timedelta
+from django.urls import reverse
+from rest_framework import status
+from rest_framework.test import APITestCase
+from photo.models import Contest, User, Picture, ContestSubmission
+
+class WinnersViewTest(APITestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(email='test@example.com', password='password', name_first='Test')
+        self.picture = Picture.objects.create(user=self.user, name='Test Picture')
+        self.contest = Contest.objects.create(title='Test Contest', description='Test Description', created_by=self.user)
+        self.contest_submission = ContestSubmission.objects.create(contest=self.contest, picture=self.picture)
+        self.contest.winners.add(self.user)
+
+    def test_winners_view(self):
+        url = reverse('winners')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(response.data[0]['contest_title'], 'Test Contest')
+        self.assertEqual(response.data[0]['winner_name'], 'Test')
+
 
 from django.test import TestCase
 from django.utils import timezone
