@@ -130,3 +130,9 @@ class Query:
         else:
             query_results.sort(key=set_order)
         return query_results
+
+    @strawberry.field
+    def winners(self) -> List[ContestType]:
+        contests_with_winners = Contest.objects.filter(winners__isnull=False).distinct()
+        contests_with_winners = contests_with_winners.order_by('-voting_phase_end')
+        return contests_with_winners

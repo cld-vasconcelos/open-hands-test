@@ -109,6 +109,33 @@ class ContestTest(TestCase):
             self.assertEqual(contest["status"], status[str(contest["id"])])
 
 
+    def test_winners_query(self):
+        user = UserFactory()
+        contest = ContestFactory(created_by=user)
+        contest.winners.add(user)
+        contest.save()
+
+        result = schema.execute_sync(
+            """
+            query {
+                winners {
+                    id
+                    title
+                    winners {
+                        id
+                        email
+                    }
+                }
+            }
+            """,
+            variable_values={}
+        )
+
+        self.assertEqual(result.errors, None)
+        self.assertEqual(len(result.data["winners"]), 1)
+        self.assertEqual(result.data["winners"][0]["id"], str(contest.id))
+        self.assertEqual(result.data["winners"][0]["winners"][0]["id"], str(user.id))
+
 class ContestFilterTest(TestCase):
     def test_filter_by_search(self):
         test_text = "This is a text with a weird word 1234Test1234."
