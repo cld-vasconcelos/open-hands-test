@@ -12,3 +12,5 @@ urlpatterns = [
     path("auth/", include("djoser.urls.authtoken")),
     path("auth/", include("djoser.social.urls")),
 ]
+    path('winners/', WinnersView.as_view(), name='winners'),
+
