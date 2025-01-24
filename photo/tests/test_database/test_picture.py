@@ -29,6 +29,10 @@ class PictureTest(TransactionTestCase):
         for like in self.picture.likes.all():
             self.assertTrue(User.objects.filter(email=like.email).exists())
 
+    def test_timestamps(self):
+        self.assertIsNotNone(self.picture.created_at)
+        self.assertIsNotNone(self.picture.updated_at)
+
 
 class PictureUploadTest(TestCase):
     def setUp(self):
