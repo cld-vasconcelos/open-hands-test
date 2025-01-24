@@ -1,4 +1,11 @@
 import uuid
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
+
+class User(AbstractUser):
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models, transaction
 from django.db.models import Count, Max
