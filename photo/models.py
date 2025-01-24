@@ -119,6 +119,8 @@ class Picture(SoftDeleteModel):
         upload_to=picture_path,
     )
     likes = models.ManyToManyField(User, related_name="picture_likes", blank=True)
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
