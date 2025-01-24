@@ -1,4 +1,19 @@
 from django.http import HttpRequest, HttpResponse
+from rest_framework.decorators import api_view
+from django.http import JsonResponse
+from django.shortcuts import render
+from django.db.models import F
+from django.db.models.functions import Lower
+
+@api_view(['GET'])
+def contest_winners(request):
+    winners = Contest.objects.annotate(
+        winner_name=F('winner__user__username'),
+        winning_photo_url=F('winner__image')
+    ).values(
+        'title', 'description', 'end_date', 'winner_name', 'winning_photo_url'
+    ).order_by('end_date')
+    return JsonResponse({'winners': list(winners)})
 from strawberry.django.views import GraphQLView
 
 from photo.queries import Context
