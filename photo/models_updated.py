@@ -316,9 +316,4 @@ class ContestSubmission(SoftDeleteModel):
         self.save()
         return self
 
-class Photo(models.Model):
-    image = models.ImageField(upload_to='photos/')
-    caption = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True, null=True)
-    updated_at = models.DateTimeField(auto_now=True, null=True)
-
+```
