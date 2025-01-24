@@ -39,3 +39,7 @@ class ContestSubmissionTest(TransactionTestCase):
                 picture=PictureFactory(user=self.contest_submission.picture.user),
                 contest=self.contest_submission.contest,
             )
+
+    def test_timestamps(self):
+        self.assertIsNotNone(self.contest_submission.created_at)
+        self.assertIsNotNone(self.contest_submission.updated_at)
