@@ -50,6 +50,8 @@ class SoftDeleteModel(models.Model):
     is_deleted = models.BooleanField(default=False)
     objects = SoftDeleteManager()
     all_objects = models.Manager()
+created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
 
     @transaction.atomic
     def delete(self):
@@ -63,8 +65,12 @@ class SoftDeleteModel(models.Model):
     class Meta:
         abstract = True
 
+created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
 
 class User(AbstractUser, SoftDeleteModel):
+created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     email = models.TextField(unique=True)
     username = models.CharField("username", max_length=150, null=True)
